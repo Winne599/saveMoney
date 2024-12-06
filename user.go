@@ -66,7 +66,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 
 	var dbUser User
-	err = db.QueryRow("SELECT id, password FROM users WHERE username = ?", user.Username).Scan(&dbUser.UserID, &dbUser.PasswordHash)
+	err = db.QueryRow("SELECT user_id, password_hash FROM users WHERE username = ?", user.Username).Scan(&dbUser.UserID, &dbUser.PasswordHash)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			http.Error(w, "User not found", http.StatusNotFound)
